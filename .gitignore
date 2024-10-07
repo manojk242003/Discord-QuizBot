@@ -1,0 +1,24 @@
+# Virtual environment
+env/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Django specific
+db.sqlite3  # Ignore the SQLite database (if using SQLite for development)
+*.log       # Log files (if any)
+*.pot       # Translation files
+*.pyc       # Compiled Python files
+*.pyo       # Compiled Python files
+
+# Migrations
+*/migrations/*
+
+# macOS specific
+.DS_Store
+
+# IDE specific
+.vscode/
+.idea/
+*.swp      # Swap files (from editors like Vim)

@@ -9,49 +9,70 @@ intents = discord.Intents.default()
 intents.message_content = True  # Enable access to message content
 
 # Initialize the bot with intents and command prefix
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(command_prefix='it!', intents=intents)
 
 @bot.event
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
 
-def get_question():
-    qs = ''
-    id = 1
-    answer = 0
-    response = requests.get("http://127.0.0.1:8000/api/random/")
-    json_data = json.loads(response.text)
-    qs += "Question:\n"
-    qs += json_data[0]['title'] + "\n"
-    for item in json_data[0]['answer']:
-        qs += str(id) + ". " + item['answer'] + "\n"
-        if item['is_correct']:
-            answer = id
-        id += 1
-    return (qs, answer)
+async def get_questions():
+    try:
+        response = requests.get("http://localhost:5001/api/v1/getquizzes")
+        response.raise_for_status()  # Raise an error for bad responses
+        json_data = response.json()
 
-@bot.event
-async def on_message(message):
-    if message.author == bot.user:
+        questions = []
+        answers = []
+
+        for quiz in json_data:
+            if 'questions' not in quiz or not quiz['questions']:
+                print(f"No questions found for quiz: {quiz['title']}")
+                continue
+
+            for question in quiz['questions']:
+                if 'questionText' not in question or 'options' not in question:
+                    print(f"Invalid question data received: {question}")
+                    continue
+
+                qs = f"**Question:** {question['questionText']}\n"
+                correct_answer = 0
+
+                for idx, option in enumerate(question['options'], start=1):
+                    qs += f"{idx}. {option['text']}\n"
+                    if option.get('isCorrect', False):
+                        correct_answer = idx
+
+                questions.append(qs)
+                answers.append(correct_answer)
+
+        return questions, answers
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching questions: {e}")
+        return [], []
+
+@bot.command()  # Define the command here
+async def quiz(ctx):
+    questions, answers = await get_questions()  # Use the async version of the function
+    
+    if not questions:
+        await ctx.send("Sorry, no valid questions available at the moment.")
         return
-    
-    if message.content.startswith('it!quiz'):
-        qs, answer = get_question()
-        await message.channel.send(qs)
 
-        def check(m):
-            return m.author == message.author and m.content.isdigit()
+    for i, qs in enumerate(questions):
+        await ctx.send(qs)
         
+        def check(m):
+            return m.author == ctx.author and m.content.isdigit()
+
         try:
-            guess = await bot.wait_for('message', check=check, timeout=5.0)
-            if int(guess.content) == answer:
-                await message.channel.send('Correct!')
+            guess = await bot.wait_for('message', check=check, timeout=15.0)
+            if int(guess.content) == answers[i]:
+                await ctx.send('Correct!')
             else:
-                await message.channel.send(f'Incorrect. The correct answer was option {answer}')
+                await ctx.send(f'Incorrect. The correct answer was option {answers[i]}')
         except asyncio.TimeoutError:
-            await message.channel.send(f'Sorry, you took too long. The correct answer was option {answer}')
-    
-    await bot.process_commands(message)
-    
+            await ctx.send(f'Sorry, you took too long. The correct answer was option {answers[i]}')
+
 # Replace 'YOUR_BOT_TOKEN' with your actual bot token
-bot.run('MTI5MTQ3MzY1NDYzNDM4NTQ0MA.Glbf0i.jV4TCa4fO2KPyYWwYhPcTXzZOH_hXbl-NcEdyI')
+bot.run('MTI5MTQ3MzY1NDYzNDM4NTQ0MA.GY8zY0.o5dqMa9DH4_grL3GRUaQRGRyWgdvb6zAKi3teY')

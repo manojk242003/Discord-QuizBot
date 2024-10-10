@@ -3,6 +3,7 @@ import requests
 import json
 from discord.ext import commands
 import asyncio
+import os
 
 # Define intents
 intents = discord.Intents.default()
@@ -75,4 +76,7 @@ async def quiz(ctx):
             await ctx.send(f'Sorry, you took too long. The correct answer was option {answers[i]}')
 
 # Replace 'YOUR_BOT_TOKEN' with your actual bot token
-bot.run('MTI5MTQ3MzY1NDYzNDM4NTQ0MA.GY8zY0.o5dqMa9DH4_grL3GRUaQRGRyWgdvb6zAKi3teY')
+
+
+# Replace 'YOUR_BOT_TOKEN' with your actual bot token
+bot.run(os.getenv('TOKEN'))

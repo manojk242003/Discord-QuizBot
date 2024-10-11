@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import axios
 import Button from '@mui/joy/Button';
 import Modal from '@mui/joy/Modal';
@@ -12,6 +13,7 @@ const Navbar = () => {
     const [password, setPassword] = useState('');
     const [open, setOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState(''); // State to hold server messages
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -42,10 +44,15 @@ const Navbar = () => {
         }
     };
 
+    const logoutHandler =()=>{
+        localStorage.removeItem('token');
+        setLoggedin(false)
+    }
+
     return (
         <div className="navbar bg-gray-800">
-            <div className="flex-1">
-                <a className="btn btn-ghost text-xl">Discord Quiz Bot</a>
+            <div className="flex-1" onClick={()=> navigate("/")}>
+                <a className="btn btn-ghost text-xl text-white">Discord Quiz Bot</a>
             </div>
             {
                 !loggedin ? ( // Show Signin button and modal if not logged in
@@ -72,29 +79,33 @@ const Navbar = () => {
                                         level="h4"
                                         textColor="inherit"
                                         sx={{ fontWeight: 'lg', mb: 1 }}
+                                        className='text-center my-2'
                                     >
                                         Sign in to Discord Quiz Bot
                                     </Typography>
-                                    <form className='flex-col m-2'>
-                                        <input
-                                            type="text"
-                                            placeholder="Username"
-                                            className="input input-primary input-bordered m-2"
-                                            onChange={(e) => setUsername(e.target.value)}
-                                        />
-                                        <input
-                                            type="password"
-                                            placeholder="Password"
-                                            className="input input-primary input-bordered m-2"
-                                            onChange={(e) => setPassword(e.target.value)}
-                                        />
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary m-2"
-                                            onClick={signinHandler}
-                                        >
-                                            Signin
-                                        </button>
+                                    <form className='flex-col m-6'>
+                                        <div className='flex flex-col'>
+                                            <input
+                                                type="text"
+                                                placeholder="Username"
+                                                className="input input-primary input-bordered m-2 text-white"
+                                                onChange={(e) => setUsername(e.target.value)}
+                                            />
+                                            <input
+                                                type="password"
+                                                placeholder="Password"
+                                                className="input input-primary input-bordered m-2 text-white"
+                                                onChange={(e) => setPassword(e.target.value)}
+                                            />
+                                            <button
+                                                type="button"
+                                                className="btn btn-primary m-2"
+                                                onClick={signinHandler}
+                                            >
+                                                Signin
+                                            </button>
+                                        </div>
+                                        
                                     </form>
                                     {errorMessage && ( // Display error message if login fails
                                         <Typography
@@ -130,7 +141,7 @@ const Navbar = () => {
                                     </a>
                                 </li>
                                 <li><a>Settings</a></li>
-                                <li><a>Logout</a></li>
+                                <li><button onClick={logoutHandler}>Logout</button></li>
                             </ul>
                         </div>
                     </div>

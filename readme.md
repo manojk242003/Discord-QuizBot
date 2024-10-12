@@ -30,45 +30,55 @@ Discord QuizBot is an interactive bot designed to host quizzes on your Discord s
     ```bash
     npm install
     ```
-6.Create a virtual environment go to root directory for macos
-  ```bash
-      python3 -m venv venv
-      source venv/bin/activate      
-      pip install discord.py requests pymongo
-  ```
-  windows
-  ```bash
-      python -m venv venv
-      venv\Scripts\activate
-      pip install discord.py requests pymongo
-  ```
+
+### Virtual Environment Setup
+
+#### macOS
+6. Create a virtual environment and install dependencies:
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install discord.py requests pymongo
+    ```
+
+#### Windows
+6. Create a virtual environment and install dependencies:
+    ```bash
+    python -m venv venv
+    venv\Scripts\activate
+    pip install discord.py requests pymongo
+    ```
 
 ## Usage
 
-1. Go to this https://discord.com/developers/applications site and create a new discord bot and add this bot to the server,Create a `.env` file and add your Discord bot token:
+1. Go to the [Discord Developer Portal](https://discord.com/developers/applications), create a new Discord bot, and add this bot to your server. Then create a `.env` file and add your Discord bot token:
     ```
     TOKEN=your_token_here
     ```
-3. Go to https://www.mongodb.com/products/platform/atlas-database and create a new project and database and add the connection url in .env file
-   ```bash
-     MONGO_DB_URL = mongo_db_token
-   ```
-4. run the front end in AdminPanel directory
-   ```bash
-   npm run dev
-   ```
-5. run backend in AdminPanel/backend directory
-   ```bash
-   npx nodemon
-   ```
-5.In root directory run the quizbot
-  ```bash
-  python3 quizbot.py
-  ```
+2. Go to the [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database), create a new project and database, and add the connection URL to the `.env` file:
+    ```
+    MONGO_DB_URL=mongo_db_token
+    ```
+3. Run the front end in the `AdminPanel` directory:
+    ```bash
+    npm run dev
+    ```
+4. Run the backend in the `AdminPanel/backend` directory:
+    ```bash
+    npx nodemon
+    ```
+5. From the root directory, run the quizbot:
+    ```bash
+    python3 quizbot.py
+    ```
 
 ## Commands
-  open the discord server that you have added the bot
-- `wec_quiz`: This command gives the list of quizzes to select and after selecting quiz, bot will display the questions one by one for each question user will be having 30s to answer and after the completion of quiz user can be able to see his rank and top 10 players of that quiz
+
+Open the Discord server where you have added the bot and use the following command:
+- `wec_quiz`: This command lists the available quizzes to select from. After selecting a quiz, the bot will display questions one by one, giving users 30 seconds to answer each question. Upon completion of the quiz, users can see their rank and the top 10 players of that quiz.
+
+## Video Demo of the task
+[Video Demo on Youtube](https://youtu.be/n9tBMIm5SPM)
 
 
 

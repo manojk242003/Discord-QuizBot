@@ -24,7 +24,7 @@ Discord QuizBot is an interactive bot designed to host quizzes on your Discord s
     ```
 4. Navigate to the Backend directory:
     ```bash
-    cd Discord-QuizBot/AdminPanel/backend
+    cd Discord-QuizBot/AdminPanel_backend
     ```
 5. Install dependencies:
     ```bash

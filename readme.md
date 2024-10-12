@@ -38,7 +38,7 @@ Discord QuizBot is an interactive bot designed to host quizzes on your Discord s
     ```bash
     python3 -m venv venv
     source venv/bin/activate
-    pip install discord.py requests pymongo
+    pip install discord.py requests pymongo python-dotenv
     ```
 
 #### Windows
@@ -46,7 +46,7 @@ Discord QuizBot is an interactive bot designed to host quizzes on your Discord s
     ```bash
     python -m venv venv
     venv\Scripts\activate
-    pip install discord.py requests pymongo
+    pip install discord.py requests pymongo python-dotenv
     ```
 
 ## Usage

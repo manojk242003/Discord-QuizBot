@@ -36,6 +36,11 @@ const Quiz = () => {
 
   const addQuestionHandler = () => {
     // Send question and options to the backend
+    //validation that atleast one correct option is selected
+    if (!options.some((opt) => opt.isCorrect)) {
+      setErrorMessage('Please select a correct option');
+      return;
+    }
     axios.post(
       'https://discord-quizbot-1.onrender.com/api/v1/addquestion/' + id,
       {
@@ -52,6 +57,7 @@ const Quiz = () => {
       console.log(res.data);
       setQuiz(res.data);
       setOpen(false);   
+      setErrorMessage('');
     })
     .catch((err) => {
       console.log(err.response.data.message);
@@ -71,6 +77,7 @@ const Quiz = () => {
   const handleOptionChange = (index, key, value) => {
     const updatedOptions = [...options];
     updatedOptions[index][key] = value; // Update either text or isCorrect
+    updatedOptions.map((option, i) => {i!==index && (option.isCorrect=false)});
     setOptions(updatedOptions);
   };
 
@@ -131,7 +138,7 @@ const Quiz = () => {
                     {options.map((option, index) => (
                       <div key={index} className="flex items-center">
                         <input
-                          type="checkbox"
+                          type="radio"
                           className="m-2"
                           checked={option.isCorrect}
                           onChange={(e) => handleOptionChange(index, 'isCorrect', e.target.checked)}

@@ -3,10 +3,12 @@ import QuizComponent from './QuizComponent';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
 const QuizMenu = () => {
     const [loggedin, setLoggedin] = useState(false);
     const [quizzes, setQuizzes] = useState([]);
     const navigate = useNavigate();
+
     useEffect(() => {
         if (localStorage.getItem('token')) {
             setLoggedin(true);
@@ -24,6 +26,7 @@ const QuizMenu = () => {
 
     return (
         <div>
+            {/* {loading ? <div>hello</div> : <div>hi</div>} */}
             {loggedin ?
                 <div className='m-2'>
                     <div className='flex justify-between items-center'>
@@ -41,7 +44,9 @@ const QuizMenu = () => {
                         ))} 
                     </div>
                 </div>
-                : <div className='text-center'>signin to edit and create quizzes</div>}
+                : <div className='text-center flex justify-center items-center h-screen'>signin to edit and create quizzes</div>}
+
+            
         </div>
     )
 }

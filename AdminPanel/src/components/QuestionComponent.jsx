@@ -95,13 +95,13 @@ const QuestionComponent = ({ quizid,id, questionText, options,quiz,setQuiz }) =>
   const handleOptionChange = (index, field, value) => {
     const updatedOptions = [...editedOptions];
     updatedOptions[index] = { ...updatedOptions[index], [field]: value };
+    updatedOptions.map((option, i) => {i!==index && (option.isCorrect=false)});
     console.log(updatedOptions)
     setEditedOptions(updatedOptions);
   };
 
   return (
     <div className="p-6 rounded-lg shadow-md w-full  text-white">
-      <div>{id}</div>
       {/* Question and Options */}
       <div className="bg-black p-4 border rounded-xl">
         <div className="flex items-center justify-between">
@@ -158,7 +158,7 @@ const QuestionComponent = ({ quizid,id, questionText, options,quiz,setQuiz }) =>
             {isEditing ? (
               <>
                 <input
-                  type="checkbox"
+                  type="radio"
                   checked={option.isCorrect}
                   onChange={(e) => handleOptionChange(index, 'isCorrect', e.target.checked)}
                   className="mr-2"

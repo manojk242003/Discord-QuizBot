@@ -6,14 +6,17 @@ import Modal from '@mui/joy/Modal';
 import ModalClose from '@mui/joy/ModalClose';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
+import { useRecoilState } from 'recoil';
+import { loadingState } from '../atoms/Loading';
 
 const Navbar = () => {
     const [loggedin, setLoggedin] = useState(false);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('admin');
+    const [password, setPassword] = useState('%@l%c1pSxv£4C3');
     const [open, setOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState(''); // State to hold server messages
     const navigate = useNavigate();
+    const [loading, setLoading] = useRecoilState(loadingState);
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -22,6 +25,7 @@ const Navbar = () => {
     }, []);
 
     const signinHandler = async () => {
+        setLoading(true);
         try {
             const res = await axios.post('https://discord-quizbot-1.onrender.com/api/v1/signin', {
                 username: username,
@@ -42,11 +46,15 @@ const Navbar = () => {
                 error.response?.data?.message || 'An error occurred. Please try again.' // Handle errors
             );
         }
+        setTimeout(()=> setLoading(false),2000)
+       
     };
 
     const logoutHandler =()=>{
         localStorage.removeItem('token');
         setLoggedin(false)
+        navigate('/')
+        window.location.reload()
     }
 
     return (
@@ -134,13 +142,6 @@ const Navbar = () => {
                                 tabIndex={0}
                                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                             >
-                                <li>
-                                    <a className="justify-between">
-                                        Profile
-                                        <span className="badge">New</span>
-                                    </a>
-                                </li>
-                                <li><a>Settings</a></li>
                                 <li><button onClick={logoutHandler}>Logout</button></li>
                             </ul>
                         </div>

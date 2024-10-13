@@ -112,4 +112,4 @@ Check out the [video demo](https://youtu.be/n9tBMIm5SPM) for a walkthrough of th
 
 ---
 
-This guide walks you through the installation, setup, and usage of the Discord QuizBot, enabling you to seamlessly host quizzes and enhance user interaction in your Discord community!
+This guide walks you through the installation, setup, and usage of the Discord QuizBot, enabling you to seamlessly host quizzes and enhance user interaction in  Discord community!

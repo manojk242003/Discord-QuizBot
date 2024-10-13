@@ -173,7 +173,7 @@ async def update_leaderboard(username, quiz_id, points, time_taken, length):
 
 # Command to list available quizzes and let the user pick one
 @bot.command()
-async def quizzes(ctx):
+async def quiz(ctx):
     quizzes = await get_quizzes()
 
     user_name = ctx.author.name

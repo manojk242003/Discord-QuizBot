@@ -73,7 +73,7 @@ const QuizCreatorForm = () => {
   // Handle form submission (e.g., log or send to an API)
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:5001/api/v1/createquiz", {
+    axios.post("https://discord-quizbot-1.onrender.com/api/v1/createquiz", {
         title: quizTitle,
         description: description,
         questions: questions.map((q) => ({

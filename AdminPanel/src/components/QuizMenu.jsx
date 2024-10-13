@@ -14,7 +14,7 @@ const QuizMenu = () => {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:5001/api/v1/getquizzes')
+        axios.get('https://discord-quizbot-1.onrender.com/api/v1/getquizzes')
         .then((res) => {
             setQuizzes(res.data)
         })
@@ -41,7 +41,7 @@ const QuizMenu = () => {
                         ))} 
                     </div>
                 </div>
-                : <div>hello</div>}
+                : <div className='text-center'>signin to edit and create quizzes</div>}
         </div>
     )
 }

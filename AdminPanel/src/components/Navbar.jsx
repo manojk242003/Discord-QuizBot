@@ -23,7 +23,7 @@ const Navbar = () => {
 
     const signinHandler = async () => {
         try {
-            const res = await axios.post('http://localhost:5001/api/v1/signin', {
+            const res = await axios.post('https://discord-quizbot-1.onrender.com/api/v1/signin', {
                 username: username,
                 password: password,
             });

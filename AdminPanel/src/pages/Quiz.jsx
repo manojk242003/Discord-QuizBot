@@ -24,7 +24,7 @@ const Quiz = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5001/api/v1/getquiz/' + id)
+      .get('https://discord-quizbot-1.onrender.com/api/v1/getquiz/' + id)
       .then((res) => {
         console.log(res.data);
         setQuiz(res.data);
@@ -37,7 +37,7 @@ const Quiz = () => {
   const addQuestionHandler = () => {
     // Send question and options to the backend
     axios.post(
-      'http://localhost:5001/api/v1/addquestion/' + id,
+      'https://discord-quizbot-1.onrender.com/api/v1/addquestion/' + id,
       {
         questionText: question,
         options: options // Pass the options array with text and isCorrect

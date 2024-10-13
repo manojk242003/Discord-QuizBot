@@ -15,7 +15,7 @@ const QuestionComponent = ({ quizid,id, questionText, options,quiz,setQuiz }) =>
     // console.log("Delete Question");
 
     if (window.confirm("Are you sure you want to delete this question?")) {
-      axios.delete(`http://localhost:5001/api/v1/deletequestion/${quizid}`, {
+      axios.delete(`https://discord-quizbot-1.onrender.com/api/v1/deletequestion/${quizid}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -59,7 +59,7 @@ const QuestionComponent = ({ quizid,id, questionText, options,quiz,setQuiz }) =>
       }
   
       // Save logic here (e.g., make an API call to save the edited question and options)
-      await axios.put('http://localhost:5001/api/v1/updatequestion/' + quizid, {
+      await axios.put('https://discord-quizbot-1.onrender.com/api/v1/updatequestion/' + quizid, {
         questionId: id,
         questionText: editedQuestionText,
         options: optionsWithoutId
